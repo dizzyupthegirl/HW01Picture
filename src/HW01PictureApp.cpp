@@ -10,10 +10,14 @@
 * A.3 (line), A.7 (triangle), E.5 (animation), and E.6 (mouse interaction)
 */ 
 
+//Final comments from me: I can't figure out why the clicking in the top corner breaks it, 
+//I thought it might be because of a bounds thing, but I'm not sure where. Also, watch conversions
+// between ints, doubles, and floats. You get a ton of warnings when you run your program about it.
+//I really liked your button interaction though. Nicely done, good sir.
 
 
 
-
+//What is pragma? 
 #pragma once
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
@@ -50,13 +54,16 @@ class HW01PictureApp : public AppBasic {
 		  int y;
 		  int r;
 	  };
+	  //I don't know what this is either....
+	  //You'll have to explain how you did the diamonds.
 	  deque<diamonds_info> diamonds_list_;
 
 	  static const int kAppWidth=800;
 	  static const int kAppHeight=600;
 	  static const int kTextureSize=1024;
 	  
-  /**
+ //This method...I don't like the name. 
+   /**
    * Fill a solid color rectangle between the given x1,x2,y1,and y2 
    * parameters. 
    *
@@ -132,12 +139,15 @@ void HW01PictureApp::buildRectangle(uint8_t* pixels, int x1, int x2, int y1, int
 void HW01PictureApp::drawPoint(uint8_t* pixels, int x, int y, Color8u fill){
 	
 	Color8u c = fill;
+	//Here you could do a for loop, but it's not really necessary....
 	pixels[3*(x+y*1024)] = c.r;
 	pixels[3*(x+y*1024)+1] = c.g;
 	pixels[3*(x+y*1024)+2] = c.b;
 
 
 }
+
+//Okay, so for the drawLine, variable names could be more clear.
 
 void HW01PictureApp::drawLine(uint8_t* pixels,int x1, int y1, int x2, int y2, Color8u fill){
 
@@ -197,7 +207,7 @@ void HW01PictureApp::drawLine(uint8_t* pixels,int x1, int y1, int x2, int y2, Co
         }
     }
 }
-
+//Using the drawLine method here was super smart.
 void HW01PictureApp::drawTriangle(uint8_t* pixels, int x1, int y1, int x2, int y2, int x3, int y3, Color8u fill){
 
 	Color8u c = fill;
@@ -207,7 +217,9 @@ void HW01PictureApp::drawTriangle(uint8_t* pixels, int x1, int y1, int x2, int y
 	drawLine(pixels, x3, y3, x1, y1, c);
 
 }
-
+//I honestly can't follow anything that you did in the circle method...Maybe you
+// could comment it more, or make it more clear from variable names what exaclt it is
+// that you did?
 void HW01PictureApp::makeCircle(uint8_t* pixels, int x, int y, int r, Color8u fill){
 
 	if(r<=0) return;
@@ -234,7 +246,8 @@ void HW01PictureApp::blur(uint8_t* pixels, uint8_t* blur_pattern){
 	static uint8_t image_copy[3*1024*1024];
 
 	uint8_t kernel[9] = {1,2,1,2,4,2,1,2,1};
-	int k, total_red, total_green, total_blue;
+	//Here you declared a k, and you redelcare it in line 256, so it's useless...
+	int total_red, total_green, total_blue;
 
 	for(int i = 1; i<(600-1); i++){
 		for(int j = 1; j<(800-1);j++){
